@@ -1,7 +1,7 @@
 // Prénoms, noms et matricule des membres de l'équipe:
 // - Vittorio PASSUELLO-DUSSAULT (matricule1)
-// - Lucas ASHBY-LÉPORÉ (matricule2)
-#warning "Écrire les prénoms, noms et matricule des membres de l'équipe dans le fichier et commenter cette ligne"
+// - Lucas ASHBY-LÉPORÉ (1897615)
+//#warning "Écrire les prénoms, noms et matricule des membres de l'équipe dans le fichier et commenter cette ligne"
 
 #if defined(_WIN32) || defined(WIN32)
 #pragma warning ( disable : 4244 4305 )

@@ -203,14 +203,15 @@ public:
 
         // ajouter une ou des transformations afin de tracer des *ailes carrées*, de la même largeur que le corps
         matrModel.PushMatrix();{
-            // afficherRepereCourant( ); // débogage: montrer le repère à la position courante
+            //afficherRepereCourant( ); // débogage: montrer le repère à la position courante
 			matrModel.PushMatrix(); {
 				matrModel.Translate(-taille, taille, 0.0);
 				matrModel.Rotate(angleAile, 1.0, 0, 0);
 				glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 				afficherQuad();
 			}matrModel.PopMatrix();
-			matrModel.Translate(-taille, -taille*3, 0.0);
+			matrModel.Translate(taille, -taille, 0.0);
+			matrModel.Rotate(180, 0, 0, 1);
 			matrModel.Rotate(angleAile, 1.0, 0, 0);
 			glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 			afficherQuad();
@@ -292,7 +293,7 @@ public:
 
             // ajouter une ou des transformations afin de centrer le haut du corps à la position courante "position[]" et de tourner son corps de l'angle "angleTete"
             //...
-
+			matrModel.Translate(position.x, position.y, position.z);
             // afficher l'antenne
             afficherAntenne();
 
@@ -307,6 +308,8 @@ public:
 
             // afficher les deux jambes
             afficherJambes();
+
+			
 
         }matrModel.PopMatrix(); glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
         glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel ); // informer ...
