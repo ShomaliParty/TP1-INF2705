@@ -227,40 +227,28 @@ public:
         // donner la couleur des bras
         glVertexAttrib3f( locColor, 0.0, 1.0, 0.0 ); // vert
 
-        // ajouter une ou des transformations afin de tracer les bras de largeur "largMembre" et longueur "longMembre"
-        // les bras
-      //   matrModel.PushMatrix();{
-      //
-      //       matrModel.Translate( 0.0, taille*2, 0.0 ); // (bidon) À MODIFIER
-			// matrModel.Scale(largMembre, longMembre, largMembre);
-			// // matrModel.Rotate(70, 1, 0, 0);
-			// matrModel.Rotate(-angleBras, 0, 0, 1);
-      //       // afficherRepereCourant( ); // débogage: montrer le repère à la position courante
-      //       glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
-      //       afficherCube();
-      //   }matrModel.PopMatrix(); glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
+        matrModel.PushMatrix();
+        {
+          matrModel.Rotate(-70, 1, 0, 0);
+          matrModel.Rotate(angleBras, 0, 1, 0);
+          matrModel.Translate(0, 0,-2 * taille);
 
-      matrModel.PushMatrix();
-      {
-        // bras gauche
-        matrModel.Rotate(-70, 1, 0, -angleBras);
-        matrModel.Translate(0, 0,-2 * taille);
-        matrModel.Scale(largMembre, largMembre, longMembre);
-        glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
-        afficherCube();
-      }
-      matrModel.PopMatrix();glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
+          matrModel.Scale(largMembre, largMembre, longMembre);
+          glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
+          afficherCube();
+        }
+        matrModel.PopMatrix();glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
 
-      matrModel.PushMatrix();
-      {
-        // bras droit
-        matrModel.Rotate(70, 1, 0, angleBras);
-        matrModel.Translate(0, 0,-2 * taille);
-        matrModel.Scale(largMembre, largMembre, longMembre);
-        glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
-        afficherCube();
-      }
-      matrModel.PopMatrix(); glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
+        matrModel.PushMatrix();
+        {
+          matrModel.Rotate(70, 1, 0, 0);
+          matrModel.Rotate(angleBras, 0, 1, 0);
+          matrModel.Translate(0, 0,-2 * taille);
+          matrModel.Scale(largMembre, largMembre, longMembre);
+          glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
+          afficherCube();
+        }
+        matrModel.PopMatrix(); glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
     }
 
     // afficher les jambes
