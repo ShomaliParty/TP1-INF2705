@@ -178,13 +178,13 @@ public:
 
             // afficher les yeux
 			matrModel.PushMatrix(); {
-				matrModel.Translate(0, taille - 0.4*taille, 0);
+				matrModel.Translate(taille, taille - 0.4*taille, 0);
 				matrModel.Rotate(30, 1.0, 0, 0);
 				matrModel.Scale(0.4*taille, 0.4*taille, 0.4*taille);
 				glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 				afficherSphere();
 			}matrModel.PopMatrix(); glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
-			matrModel.Translate(0, -(taille - 0.4*taille), 0);
+			matrModel.Translate(taille, -(taille - 0.4*taille), 0);
 			matrModel.Rotate(-30, 1.0, 0, 0);
 			matrModel.Scale(0.4*taille, 0.4*taille, 0.4*taille);
 			glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
