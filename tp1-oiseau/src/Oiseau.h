@@ -124,11 +124,11 @@ public:
         // afficher la première partie de l'antenne
         matrModel.PushMatrix(); {
 
+          suivreRotationTete();
 			matrModel.Translate(0.0, 0.0, taille); // bidon à modifier
 			matrModel.PushMatrix(); {
 				matrModel.Scale(taille / 3.0, taille / 3.0, taille);
 				// ==> Avant de tracer, on doit informer la carte graphique des changements faits à la matrice de modélisation
-        suivreRotationTete();
 				glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 				afficherCylindre();
 			}matrModel.PopMatrix();
@@ -165,15 +165,15 @@ public:
                 {
                 default:
                 case 1: // une sphère
-                    matrModel.Scale( taille, taille, taille ); // (bidon) À MODIFIER
                     suivreRotationTete();
+                    matrModel.Scale( taille, taille, taille ); // (bidon) À MODIFIER
                     glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
                     afficherSphere();
                     break;
 
                 case 2: // la théière
-                    matrModel.Scale( 0.45, 0.45, 0.45 );
                     suivreRotationTete();
+                    matrModel.Scale( 0.45, 0.45, 0.45 );
                     glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
                     afficherTheiere();
                     break;
@@ -185,16 +185,17 @@ public:
 
             // afficher les yeux
 			matrModel.PushMatrix(); {
+        suivreRotationTete();
 				matrModel.Translate(taille, taille - 0.4*taille, 0);
 				matrModel.Rotate(30, 1.0, 0, 0);
-        suivreRotationTete();
 				matrModel.Scale(0.4*taille, 0.4*taille, 0.4*taille);
 				glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 				afficherSphere();
-			}matrModel.PopMatrix(); glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
+			}matrModel.PopMatrix();
+      glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
+      suivreRotationTete();
 			matrModel.Translate(taille, -(taille - 0.4*taille), 0);
 			matrModel.Rotate(-30, 1.0, 0, 0);
-      suivreRotationTete();
 			matrModel.Scale(0.4*taille, 0.4*taille, 0.4*taille);
 			glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 			afficherSphere();
@@ -219,10 +220,10 @@ public:
 				glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 				afficherQuad();
 			}matrModel.PopMatrix();
+      suivreRotationTete();
 			matrModel.Translate(taille, -taille, 0.0);
 			matrModel.Rotate(180, 0, 0, 1);
 			matrModel.Rotate(angleAile, 1.0, 0, 0);
-      suivreRotationTete();
 			glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 			afficherQuad();
 
@@ -240,9 +241,9 @@ public:
 
         matrModel.PushMatrix();
         {
+          suivreRotationTete();
           matrModel.Rotate(-70, 1, 0, 0);
           matrModel.Rotate(angleBras, 0, 1, 0);
-          suivreRotationTete();
           matrModel.Translate(0, 0,-2 * taille);
 
           matrModel.Scale(largMembre, largMembre, longMembre);
@@ -253,9 +254,9 @@ public:
 
         matrModel.PushMatrix();
         {
+          suivreRotationTete();
           matrModel.Rotate(70, 1, 0, 0);
           matrModel.Rotate(angleBras, 0, 1, 0);
-          suivreRotationTete();
           matrModel.Translate(0, 0,-2 * taille);
           matrModel.Scale(largMembre, largMembre, longMembre);
           glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
@@ -279,8 +280,8 @@ public:
         // TODO ajuster les translations
         matrModel.PushMatrix();
         {
-          matrModel.Rotate(30, 1, 0, 0);
           suivreRotationTete();
+          matrModel.Rotate(30, 1, 0, 0);
           matrModel.Translate(0, 0, -2 * taille);
           matrModel.Scale(largMembre, largMembre, longMembre);
           glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
@@ -290,8 +291,8 @@ public:
 
         matrModel.PushMatrix();
         {
-          matrModel.Rotate(-30, 1, 0, 0);
           suivreRotationTete();
+          matrModel.Rotate(-30, 1, 0, 0);
           matrModel.Translate(0, 0, -2* taille);
           matrModel.Scale(largMembre, largMembre, longMembre);
           glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
