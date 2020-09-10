@@ -56,6 +56,10 @@ public:
         if ( angleAile > 60.0 ) angleAile = 60.0; else if ( angleAile < 0.0 ) angleAile = 0.0;
     }
 
+    void suivreRotationTete() {
+      matrModel.Rotate(angleTete, 0, 0, 1);
+    }
+
     void initialiserGraphique()
     {
         GLint prog = 0; glGetIntegerv( GL_CURRENT_PROGRAM, &prog );
@@ -124,6 +128,7 @@ public:
 			matrModel.PushMatrix(); {
 				matrModel.Scale(taille / 3.0, taille / 3.0, taille);
 				// ==> Avant de tracer, on doit informer la carte graphique des changements faits à la matrice de modélisation
+        suivreRotationTete();
 				glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 				afficherCylindre();
 			}matrModel.PopMatrix();
@@ -161,12 +166,14 @@ public:
                 default:
                 case 1: // une sphère
                     matrModel.Scale( taille, taille, taille ); // (bidon) À MODIFIER
+                    suivreRotationTete();
                     glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
                     afficherSphere();
                     break;
 
                 case 2: // la théière
                     matrModel.Scale( 0.45, 0.45, 0.45 );
+                    suivreRotationTete();
                     glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
                     afficherTheiere();
                     break;
@@ -180,12 +187,14 @@ public:
 			matrModel.PushMatrix(); {
 				matrModel.Translate(taille, taille - 0.4*taille, 0);
 				matrModel.Rotate(30, 1.0, 0, 0);
+        suivreRotationTete();
 				matrModel.Scale(0.4*taille, 0.4*taille, 0.4*taille);
 				glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 				afficherSphere();
 			}matrModel.PopMatrix(); glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 			matrModel.Translate(taille, -(taille - 0.4*taille), 0);
 			matrModel.Rotate(-30, 1.0, 0, 0);
+      suivreRotationTete();
 			matrModel.Scale(0.4*taille, 0.4*taille, 0.4*taille);
 			glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 			afficherSphere();
@@ -212,6 +221,7 @@ public:
 			}matrModel.PopMatrix();
 			matrModel.Translate(-taille, -taille*3, 0.0);
 			matrModel.Rotate(angleAile, 1.0, 0, 0);
+      suivreRotationTete();
 			glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 			afficherQuad();
 
@@ -231,6 +241,7 @@ public:
         {
           matrModel.Rotate(-70, 1, 0, 0);
           matrModel.Rotate(angleBras, 0, 1, 0);
+          suivreRotationTete();
           matrModel.Translate(0, 0,-2 * taille);
 
           matrModel.Scale(largMembre, largMembre, longMembre);
@@ -243,6 +254,7 @@ public:
         {
           matrModel.Rotate(70, 1, 0, 0);
           matrModel.Rotate(angleBras, 0, 1, 0);
+          suivreRotationTete();
           matrModel.Translate(0, 0,-2 * taille);
           matrModel.Scale(largMembre, largMembre, longMembre);
           glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
@@ -267,6 +279,7 @@ public:
         matrModel.PushMatrix();
         {
           matrModel.Rotate(30, 1, 0, 0);
+          suivreRotationTete();
           matrModel.Translate(0, 0, -2 * taille);
           matrModel.Scale(largMembre, largMembre, longMembre);
           glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
@@ -277,6 +290,7 @@ public:
         matrModel.PushMatrix();
         {
           matrModel.Rotate(-30, 1, 0, 0);
+          suivreRotationTete();
           matrModel.Translate(0, 0, -2* taille);
           matrModel.Scale(largMembre, largMembre, longMembre);
           glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
