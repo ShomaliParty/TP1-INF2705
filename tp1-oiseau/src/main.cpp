@@ -1,6 +1,6 @@
 // Prénoms, noms et matricule des membres de l'équipe:
-// - Prénom1 NOM1 (matricule1)
-// - Prénom2 NOM2 (matricule2)
+// - Vittorio PASSUELLO-DUSSAULT (matricule1)
+// - Lucas ASHBY-LÉPORÉ (matricule2)
 #warning "Écrire les prénoms, noms et matricule des membres de l'équipe dans le fichier et commenter cette ligne"
 
 #if defined(_WIN32) || defined(WIN32)

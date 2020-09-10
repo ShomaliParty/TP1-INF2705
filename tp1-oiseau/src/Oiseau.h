@@ -119,7 +119,7 @@ public:
 
         // afficher la première partie de l'antenne
         matrModel.PushMatrix(); {
-			
+
 			matrModel.Translate(0.0, 0.0, taille); // bidon à modifier
 			matrModel.PushMatrix(); {
 				matrModel.Scale(taille / 3.0, taille / 3.0, taille);
@@ -182,7 +182,7 @@ public:
 				matrModel.Rotate(30, 1.0, 0, 0);
 				matrModel.Scale(0.4*taille, 0.4*taille, 0.4*taille);
 				glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
-				afficherSphere(); 
+				afficherSphere();
 			}matrModel.PopMatrix(); glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 			matrModel.Translate(0, -(taille - 0.4*taille), 0);
 			matrModel.Rotate(-30, 1.0, 0, 0);
@@ -214,7 +214,7 @@ public:
 			matrModel.Rotate(angleAile, 1.0, 0, 0);
 			glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 			afficherQuad();
-			
+
         }matrModel.PopMatrix(); glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
     }
 
@@ -229,16 +229,38 @@ public:
 
         // ajouter une ou des transformations afin de tracer les bras de largeur "largMembre" et longueur "longMembre"
         // les bras
-        matrModel.PushMatrix();{
+      //   matrModel.PushMatrix();{
+      //
+      //       matrModel.Translate( 0.0, taille*2, 0.0 ); // (bidon) À MODIFIER
+			// matrModel.Scale(largMembre, longMembre, largMembre);
+			// // matrModel.Rotate(70, 1, 0, 0);
+			// matrModel.Rotate(-angleBras, 0, 0, 1);
+      //       // afficherRepereCourant( ); // débogage: montrer le repère à la position courante
+      //       glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
+      //       afficherCube();
+      //   }matrModel.PopMatrix(); glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
 
-            matrModel.Translate( 0.0, taille*2, 0.0 ); // (bidon) À MODIFIER
-			matrModel.Scale(largMembre, longMembre, largMembre);
-			matrModel.Rotate(70, 1, 0, 0);
-			matrModel.Rotate(-angleBras, 0, 0, 1);
-            // afficherRepereCourant( ); // débogage: montrer le repère à la position courante
-            glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
-            afficherCube();
-        }matrModel.PopMatrix(); glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
+      matrModel.PushMatrix();
+      {
+        // bras gauche
+        matrModel.Rotate(-70, 1, 0, -angleBras);
+        matrModel.Translate(0, 0,-2 * taille);
+        matrModel.Scale(largMembre, largMembre, longMembre);
+        glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
+        afficherCube();
+      }
+      matrModel.PopMatrix();glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
+
+      matrModel.PushMatrix();
+      {
+        // bras droit
+        matrModel.Rotate(70, 1, 0, angleBras);
+        matrModel.Translate(0, 0,-2 * taille);
+        matrModel.Scale(largMembre, largMembre, longMembre);
+        glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
+        afficherCube();
+      }
+      matrModel.PopMatrix(); glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
     }
 
     // afficher les jambes
@@ -252,6 +274,27 @@ public:
         // ajouter une ou des transformations afin de tracer les jambes de largeur "largMembre" et longueur "longMembre"
         // les jambes
         // ...
+
+        // TODO ajuster les translations
+        matrModel.PushMatrix();
+        {
+          matrModel.Rotate(30, 1, 0, 0);
+          matrModel.Translate(0, 0, -2 * taille);
+          matrModel.Scale(largMembre, largMembre, longMembre);
+          glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
+          afficherCube();
+        }
+        matrModel.PopMatrix();glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
+
+        matrModel.PushMatrix();
+        {
+          matrModel.Rotate(-30, 1, 0, 0);
+          matrModel.Translate(0, 0, -2* taille);
+          matrModel.Scale(largMembre, largMembre, longMembre);
+          glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
+          afficherCube();
+        }
+        matrModel.PopMatrix(); glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
     }
 
     void afficher()
