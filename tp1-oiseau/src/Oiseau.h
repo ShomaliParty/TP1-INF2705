@@ -323,7 +323,7 @@ public:
             // afficher les deux jambes
             afficherJambes();
 
-			
+
 
         }matrModel.PopMatrix(); glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
         glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel ); // informer ...
