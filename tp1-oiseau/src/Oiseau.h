@@ -123,11 +123,11 @@ public:
         // afficher la première partie de l'antenne
         matrModel.PushMatrix(); {
 
-          
+
 			matrModel.Translate(0.0, 0.0, taille); // bidon à modifier
 			matrModel.Rotate(5 * angleTete, 0, 0, 1);
 			matrModel.PushMatrix(); {
-				
+
 				matrModel.Scale(taille / 3.0, taille / 3.0, taille);
 				// ==> Avant de tracer, on doit informer la carte graphique des changements faits à la matrice de modélisation
 				glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
@@ -135,7 +135,7 @@ public:
 			}matrModel.PopMatrix();
 			matrModel.Translate(0, 0, taille);
 			matrModel.Scale(taille / 3.0, taille, taille / 3.0);
-			
+
 			glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 			afficherCylindre();
         }matrModel.PopMatrix(); glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
@@ -176,7 +176,8 @@ public:
                     suivreRotationTete();
 					matrModel.Translate(0, 0, -taille);
 					matrModel.Rotate(90, 1, 0, 0);
-                    matrModel.Scale( 0.4*taille, 0.4*taille, 0.4*taille );
+                    GLfloat scaleFactor = 0.45 * taille;
+                    matrModel.Scale( scaleFactor, scaleFactor, scaleFactor );
                     glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
                     afficherTheiere();
                     break;
@@ -218,16 +219,16 @@ public:
         matrModel.PushMatrix();{
             //afficherRepereCourant( ); // débogage: montrer le repère à la position courante
 			matrModel.PushMatrix(); {
-				
-				
+
+
 				suivreRotationTete();
 				matrModel.Translate(-TAILLE_INIT, taille, 0.0);
 				matrModel.Rotate(angleAile, 1.0, 0, 0);
 				glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 				afficherQuad();
 			}matrModel.PopMatrix();
-      
-			
+
+
 			suivreRotationTete();
 			matrModel.Translate(TAILLE_INIT, -taille, 0.0);
 			matrModel.Rotate(180, 0, 0, 1);
