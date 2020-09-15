@@ -74,18 +74,23 @@ public:
 
         // allouer les objets OpenGL
         glGenVertexArrays( 1, &vao );
-
+		glGenBuffers(1, &vboTheiereSommets);
+		glGenBuffers(1, &vboTheiereConnec);
         // initialiser le VAO pour la théière
         glBindVertexArray( vao );
+		// (partie 2) MODIFICATIONS ICI ...
+		// créer le VBO pour les sommets
+		glGenBuffers(1, &vboTheiereSommets);
+		glBindBuffer(GL_ARRAY_BUFFER, vboTheiereSommets);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(gTheiereSommets), gTheiereSommets, GL_STATIC_DRAW);
+		glVertexAttribPointer(locVertex, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		glEnableVertexAttribArray(locVertex);
 
-        // (partie 2) MODIFICATIONS ICI ...
-        // créer le VBO pour les sommets
-        //...
-
-        // créer le VBO la connectivité
-        //...
-
-        glBindVertexArray(0);
+		// créer le VBO la connectivité
+		glGenBuffers(1, &vboTheiereConnec);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboTheiereConnec);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(gTheiereConnec), gTheiereConnec, GL_STATIC_DRAW);
+		glBindVertexArray(0);
     }
 
     void conclureGraphique()
@@ -98,16 +103,10 @@ public:
     // affiche une théière, dont la base est centrée en (0,0,0)
     void afficherTheiere()
     {
+
         glBindVertexArray( vao );
         // (partie 2) MODIFICATIONS ICI ...
-        //...
-
-        // vous pouvez utiliser temporairement cette fonction pour la première partie du TP, mais vous ferez mieux dans la seconde partie du TP
-        glBegin( GL_TRIANGLES );
-        for ( unsigned int i = 0 ; i < sizeof(gTheiereConnec)/sizeof(GLuint) ; i++ )
-            glVertex3fv( &(gTheiereSommets[3*gTheiereConnec[i]] ) );
-        glEnd( );
-
+		glDrawElements(GL_TRIANGLES, sizeof(gTheiereConnec), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
     }
 
@@ -124,17 +123,19 @@ public:
         // afficher la première partie de l'antenne
         matrModel.PushMatrix(); {
 
-          suivreRotationTete();
+          
 			matrModel.Translate(0.0, 0.0, taille); // bidon à modifier
+			matrModel.Rotate(5 * angleTete, 0, 0, 1);
 			matrModel.PushMatrix(); {
+				
 				matrModel.Scale(taille / 3.0, taille / 3.0, taille);
 				// ==> Avant de tracer, on doit informer la carte graphique des changements faits à la matrice de modélisation
 				glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 				afficherCylindre();
 			}matrModel.PopMatrix();
 			matrModel.Translate(0, 0, taille);
-			matrModel.Scale(taille, taille, taille / 3.0);
-			matrModel.Rotate(5 * angleTete, 0, 0, 1);
+			matrModel.Scale(taille / 3.0, taille, taille / 3.0);
+			
 			glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 			afficherCylindre();
         }matrModel.PopMatrix(); glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
@@ -173,7 +174,9 @@ public:
 
                 case 2: // la théière
                     suivreRotationTete();
-                    matrModel.Scale( 0.45, 0.45, 0.45 );
+					matrModel.Translate(0, 0, -taille);
+					matrModel.Rotate(90, 1, 0, 0);
+                    matrModel.Scale( 0.4*taille, 0.4*taille, 0.4*taille );
                     glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
                     afficherTheiere();
                     break;
@@ -215,13 +218,18 @@ public:
         matrModel.PushMatrix();{
             //afficherRepereCourant( ); // débogage: montrer le repère à la position courante
 			matrModel.PushMatrix(); {
-				matrModel.Translate(-taille, taille, 0.0);
+				
+				
+				suivreRotationTete();
+				matrModel.Translate(-TAILLE_INIT, taille, 0.0);
 				matrModel.Rotate(angleAile, 1.0, 0, 0);
 				glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 				afficherQuad();
 			}matrModel.PopMatrix();
-      suivreRotationTete();
-			matrModel.Translate(taille, -taille, 0.0);
+      
+			
+			suivreRotationTete();
+			matrModel.Translate(TAILLE_INIT, -taille, 0.0);
 			matrModel.Rotate(180, 0, 0, 1);
 			matrModel.Rotate(angleAile, 1.0, 0, 0);
 			glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
@@ -377,6 +385,7 @@ public:
     GLint locColor = -1;
 
     glm::vec3 position;       // position courante de l'oiseau
+	const GLfloat TAILLE_INIT = 0.5;
     GLfloat taille;           // facteur d'échelle du corps
     GLfloat angleTete;       // angle de rotation (en degrés) de l'oiseau
     GLfloat angleAile;        // angle de rotation (en degrés) des ailes

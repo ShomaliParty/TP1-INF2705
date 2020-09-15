@@ -1,7 +1,7 @@
 ﻿  main.cpp
   Generating code
-  2 of 453 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+  4 of 454 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  tp1_oiseau.vcxproj -> C:\Users\lucas\Desktop\Lucas-Aspire\INF2705\TP\TP1\TP1-INF2705-master\TP1-INF2705-master\tp1-oiseau\tp1-oiseau\Release\tp1_oiseau.exe
+  tp1_oiseau.vcxproj -> C:\Users\lucas\Desktop\Lucas-Aspire\INF2705\TP\TP1\TP1-INF2705\tp1-oiseau\Release\tp1_oiseau.exe
