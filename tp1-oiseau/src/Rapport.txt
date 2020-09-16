@@ -5,6 +5,12 @@ Q1: Lorsque l'on construit notre robot dans la partie 1 du TP, on effectue plusi
     le calcul mathématique matriciel pour vous aider à justifier).
 
 
+    matrModel.Translate(x, y, z); // on déplace notre repère vers le point voulu
+    matrModel.Scale(scaleX, scaleY, scaleZ); // Mise à l'échelle
+    matrModel.Rotate(angle, x, y, z); // rotation du repère
+    matrModel.Translate(x, y, z); // translation selon LA NOUVELLE ORIENTATION DU repère
+
+    // Si nous voulions garder les deux translations selon le repère non pivoté, il faudrait appeler le second translate avant le rotate!
 
 
 
@@ -12,5 +18,7 @@ Q2: Dans ce TP dans la partie 2, on vous a demandé d'utiliser des VBOs pour aff
     Visuellement rien ne change, mais quelles sont les différences entre les deux méthodes utilisées ?
     Pourquoi d'ailleurs ne remarque-t-on aucune différence ?
 
-
-
+    L'utilisation de VBOs et VAOs permet de déléguer l'affichage des sommets et des connexions à la carte graphique qui
+    se chargera de rendre tous les points dans des threads concurrents. C'est donc une façon plus performante d'afficher la théière.
+    On ne remarque aucune différence, puisque les deux méthodes d'affichage se basent sur les mêmes sommets de la forme pour générer
+    les triangles.
