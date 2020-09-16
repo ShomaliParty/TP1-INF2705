@@ -11,7 +11,8 @@ Q1: Lorsque l'on construit notre robot dans la partie 1 du TP, on effectue plusi
     matrModel.Translate(x, y, z); // translation selon LA NOUVELLE ORIENTATION DU repère
 
     // Si nous voulions garder les deux translations selon le repère non pivoté, il faudrait appeler le second translate avant le rotate!
-
+    // Il est important de souligné qu'après la mise à l'échelle, l'angle du rotate et la valeur de la translation vont varier selon 
+	la valeur de la mise à l'échelle.
 
 
 Q2: Dans ce TP dans la partie 2, on vous a demandé d'utiliser des VBOs pour afficher la fameuse théière!
